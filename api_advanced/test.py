@@ -21,3 +21,6 @@ def number_of_subscribers(subreddit):
         return 0
 
 # Example usage
+subreddit = "python"
+subscribers = number_of_subscribers(subreddit)
+print(f"Subscribers: {subscribers}")
