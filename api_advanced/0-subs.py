@@ -1,17 +1,21 @@
 #!/usr/bin/python3
-"""Return the number of subscribers of a given subreddit"""
-
+"""
+function that queries the 'Reddit API' and returns the number of subscribers
+"""
 import requests
 
 
 def number_of_subscribers(subreddit):
-    """function that fetches number_of_subscribers"""
-    URL = "https://www.reddit.com/r/{}/about.json".format(subreddit)
-    HEADERS = {"User-Agent": "PostmanRuntime/7.35.0"}
+    """
+    number of subscribers
+    """
+    url = "https://oauth.reddit.com/r/{}/about.json".format(subreddit)
+    headers = {"User-Agent": "Mozilla/5.0"}  # avoid Too Many Requests error
 
-    try:
-        RESPONSE = requests.get(URL, headers=HEADERS, allow_redirects=False)
-        return RESPONSE.json().get("data").get("subscribers")
+    response = requests.get(url, headers=headers, allow_redirects=False)
 
-    except Exception:
+    if response.status_code == 200:
+        data = response.json()
+        return data['data']['subscribers']
+    else:
         return 0
